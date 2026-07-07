@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Catalyst Onboarding &amp; Induction Pipeline Tracker · EduSpots</title>
+<meta name="description" content="Tracks Catalysts moving through EduSpots' 6-step induction pathway, flags stalled progress, and gives Regional Coordinators an at-a-glance view of their cluster." />
+<link rel="icon" href="assets/favicon.ico" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+<div class="app-shell">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-plate">
+        <img src="assets/eduspots-logo-horz.svg" alt="EduSpots" class="brand-logo" />
+      </div>
+      <p class="brand-caption">Catalyst Onboarding &amp;<br/>Induction Pipeline Tracker</p>
+    </div>
+
+    <nav class="sidebar-nav">
+      <button class="nav-link active" data-view="overview">
+        <span class="nav-icon">◆</span> Overview
+      </button>
+      <button class="nav-link" data-view="board">
+        <span class="nav-icon">▤</span> Pipeline board
+      </button>
+      <button class="nav-link" data-view="rcs">
+        <span class="nav-icon">◎</span> RC clusters
+      </button>
+      <button class="nav-link" data-view="stalled">
+        <span class="nav-icon">▲</span> Stalled Catalysts
+        <span class="nav-badge" id="navStalledBadge">–</span>
+      </button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <p><strong>Prototype</strong> · synthetic demo data</p>
+      <p class="sidebar-footer-sub">Project #2 of 5 · EduSpots ops portfolio</p>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- ============ OVERVIEW ============ -->
+    <section class="view" id="view-overview">
+      <header class="view-header">
+        <div>
+          <h1>Overview</h1>
+          <p class="view-sub">Every Catalyst currently moving through the 6-step induction pathway.</p>
+        </div>
+      </header>
+
+      <div class="kpi-row" id="kpiRow"></div>
+
+      <div class="chart-grid">
+        <div class="panel">
+          <h2 class="panel-title">Catalysts by induction step</h2>
+          <p class="panel-sub">Where everyone currently sits in the pathway.</p>
+          <div class="chart-wrap chart-wrap-tall">
+            <canvas id="stepFunnelChart"></canvas>
+          </div>
+        </div>
+        <div class="panel">
+          <h2 class="panel-title">Catalysts by RC cluster</h2>
+          <p class="panel-sub">Distribution across the four Regional Coordinators.</p>
+          <div class="chart-wrap">
+            <canvas id="rcClusterChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PIPELINE BOARD ============ -->
+    <section class="view" id="view-board" hidden>
+      <header class="view-header">
+        <div>
+          <h1>Pipeline board</h1>
+          <p class="view-sub">One column per induction step. Click a card for details.</p>
+        </div>
+        <div class="view-actions">
+          <label class="filter-label" for="rcFilterBoard">Filter by RC</label>
+          <select id="rcFilterBoard" class="filter-select"></select>
+        </div>
+      </header>
+      <div class="board" id="pipelineBoard"></div>
+    </section>
+
+    <!-- ============ RC CLUSTERS ============ -->
+    <section class="view" id="view-rcs" hidden>
+      <header class="view-header">
+        <div>
+          <h1>RC clusters</h1>
+          <p class="view-sub">How each Regional Coordinator's cluster is tracking.</p>
+        </div>
+      </header>
+      <div class="panel">
+        <table class="data-table" id="rcTable">
+          <thead>
+            <tr>
+              <th>Regional Coordinator</th>
+              <th>Region</th>
+              <th>Total</th>
+              <th>On-track</th>
+              <th>Watch</th>
+              <th>Stalled</th>
+              <th>Graduated</th>
+              <th>Avg days to graduate</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ============ STALLED CATALYSTS ============ -->
+    <section class="view" id="view-stalled" hidden>
+      <header class="view-header">
+        <div>
+          <h1>Stalled Catalysts</h1>
+          <p class="view-sub">Everyone currently flagged watch or stalled, with the specific reason.</p>
+        </div>
+        <div class="view-actions">
+          <label class="filter-label" for="rcFilterStalled">Filter by RC</label>
+          <select id="rcFilterStalled" class="filter-select"></select>
+        </div>
+      </header>
+      <div class="stalled-list" id="stalledList"></div>
+    </section>
+
+  </main>
+</div>
+
+<!-- ============ CATALYST DETAIL MODAL ============ -->
+<div class="modal-overlay" id="modalOverlay" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalName">
+    <button class="modal-close" id="modalClose" aria-label="Close">&times;</button>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js"></script>
+<script src="js/real-data.js"></script>
+<script src="js/data.js"></script>
+<script src="js/charts.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
