@@ -73,7 +73,7 @@ eduspots-catalyst-tracker/
   .gitignore
 ```
 
-## Roadmap (if this moved past prototype)
+## Roadmap
 
 - Real data source instead of synthetic generation (EduSpots' actual Catalyst records / app data)
 - RC-side note-taking on acknowledged follow-ups, not just a boolean
