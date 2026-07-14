@@ -1,0 +1,1358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Catalyst Onboarding &amp; Induction Pipeline Tracker — Product Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+<style>
+
+/* ── Reset ──────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; }
+
+body {
+  font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  background: #F6F2E9;
+  color: #1A1A16;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Tokens ─────────────────────────────────────────────────── */
+:root {
+  --forest:       #123524;
+  --forest-light: #1F5C3D;
+  --gold:         #D9A62E;
+  --gold-soft:    #F0D89B;
+  --sky:          #3E7CB1;
+  --clay:         #B54834;
+  --paper:        #F6F2E9;
+  --panel:        #FFFFFF;
+  --ink:          #1A1A16;
+  --muted:        #6B6558;
+  --line:         rgba(26,26,22,0.10);
+}
+
+/* ── Cover ──────────────────────────────────────────────────── */
+.cover {
+  background: var(--forest);
+  color: #fff;
+  padding: 72px 60px 60px;
+  position: relative;
+  overflow: hidden;
+}
+
+.cover::after {
+  content: "";
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 5px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--forest-light) 0px, var(--forest-light) 8px,
+    var(--gold)         8px, var(--gold)         10px,
+    var(--forest-light) 10px, var(--forest-light) 12px,
+    #fff                12px, #fff                13px,
+    var(--forest-light) 13px, var(--forest-light) 15px
+  );
+}
+
+.cover-eyebrow {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cover-eyebrow::before {
+  content: "";
+  display: inline-block;
+  width: 28px;
+  height: 1px;
+  background: var(--gold);
+}
+
+.cover-title {
+  font-family: "Space Grotesk", ui-sans-serif, sans-serif;
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 700;
+  line-height: 1.15;
+  color: #fff;
+  max-width: 700px;
+  margin-bottom: 20px;
+}
+
+.cover-subtitle {
+  font-size: 16px;
+  color: rgba(255,255,255,0.65);
+  max-width: 560px;
+  line-height: 1.6;
+  margin-bottom: 40px;
+}
+
+.cover-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.cover-meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.cover-meta-label {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.40);
+}
+
+.cover-meta-value {
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.85);
+}
+
+/* ── Layout ─────────────────────────────────────────────────── */
+.page {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 0 32px 80px;
+}
+
+/* ── TOC ────────────────────────────────────────────────────── */
+.toc {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--forest);
+  border-radius: 6px;
+  padding: 28px 32px;
+  margin: 44px 0 60px;
+}
+
+.toc-title {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+
+.toc-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px 40px;
+}
+
+.toc-list a {
+  font-size: 14px;
+  color: var(--forest-light);
+  text-decoration: none;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.toc-list a:hover { text-decoration: underline; }
+
+.toc-num {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11px;
+  color: var(--muted);
+  width: 20px;
+  flex-shrink: 0;
+}
+
+/* ── Section headings ───────────────────────────────────────── */
+.section {
+  margin-bottom: 60px;
+}
+
+.section-eyebrow {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.section-eyebrow::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+}
+
+.section-title {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.2;
+  margin-bottom: 14px;
+}
+
+.section-lead {
+  font-size: 16px;
+  color: var(--muted);
+  max-width: 680px;
+  margin-bottom: 28px;
+  line-height: 1.65;
+}
+
+/* ── Feature cards ──────────────────────────────────────────── */
+.feature-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.feature-card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 20px 22px;
+}
+
+.feature-card-icon {
+  width: 36px;
+  height: 36px;
+  background: rgba(18,53,36,0.08);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+  color: var(--forest);
+}
+
+.feature-card-title {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+
+.feature-card-body {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* ── View breakdowns ────────────────────────────────────────── */
+.view-block {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+
+.view-block-header {
+  padding: 18px 24px 16px;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.view-block-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.icon-forest { background: rgba(18,53,36,0.10); color: var(--forest); }
+.icon-sky    { background: rgba(62,124,177,0.12); color: var(--sky); }
+.icon-gold   { background: rgba(217,166,46,0.15); color: #9B7119; }
+.icon-clay   { background: rgba(181,72,52,0.12); color: var(--clay); }
+
+.view-block-name {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+
+.view-block-tagline {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.view-block-body {
+  padding: 20px 24px;
+}
+
+.view-block-body p {
+  font-size: 14px;
+  color: var(--ink);
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+
+.view-block-body p:last-of-type { margin-bottom: 0; }
+
+/* ── Element list ───────────────────────────────────────────── */
+.element-list {
+  list-style: none;
+  margin-top: 16px;
+  border-top: 1px solid var(--line);
+  padding-top: 16px;
+}
+
+.element-item {
+  display: flex;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 14px;
+}
+
+.element-item:last-child { border-bottom: none; }
+
+.element-label {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--forest-light);
+  background: rgba(18,53,36,0.08);
+  padding: 2px 8px;
+  border-radius: 3px;
+  white-space: nowrap;
+  align-self: flex-start;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.element-desc {
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+/* ── Status pills ───────────────────────────────────────────── */
+.status-row {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.status-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 16px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  border-left-width: 3px;
+}
+
+.status-item.status-ontrack   { border-left-color: var(--forest-light); }
+.status-item.status-watch     { border-left-color: var(--gold); }
+.status-item.status-stalled   { border-left-color: var(--clay); }
+.status-item.status-graduated { border-left-color: var(--sky); }
+
+.status-pill {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 3px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.pill-ontrack   { background: rgba(31,92,61,0.12);  color: var(--forest-light); }
+.pill-watch     { background: rgba(217,166,46,0.18); color: #9B7119; }
+.pill-stalled   { background: rgba(181,72,52,0.14);  color: var(--clay); }
+.pill-graduated { background: rgba(62,124,177,0.14); color: #29618F; }
+
+.status-content {}
+
+.status-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 3px;
+}
+
+.status-conditions {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+/* ── Callout boxes ──────────────────────────────────────────── */
+.callout {
+  border-radius: 6px;
+  padding: 16px 20px;
+  margin: 24px 0;
+  font-size: 14px;
+  line-height: 1.65;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.callout-principle {
+  background: rgba(18,53,36,0.06);
+  border: 1px solid rgba(18,53,36,0.15);
+}
+
+.callout-note {
+  background: rgba(217,166,46,0.10);
+  border: 1px solid rgba(217,166,46,0.25);
+}
+
+.callout-scope {
+  background: rgba(62,124,177,0.08);
+  border: 1px solid rgba(62,124,177,0.20);
+}
+
+.callout-icon {
+  font-size: 16px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.callout strong {
+  display: block;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 4px;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 13px;
+}
+
+.callout p { color: var(--muted); margin: 0; }
+
+/* ── Workflow diagram ───────────────────────────────────────── */
+.workflow {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 20px 0;
+  position: relative;
+}
+
+.workflow-step {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  padding-bottom: 24px;
+  position: relative;
+}
+
+.workflow-step:last-child { padding-bottom: 0; }
+
+.workflow-step::before {
+  content: "";
+  position: absolute;
+  left: 17px;
+  top: 36px;
+  bottom: 0;
+  width: 2px;
+  background: var(--line);
+}
+
+.workflow-step:last-child::before { display: none; }
+
+.workflow-num {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--forest);
+  color: #fff;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.workflow-content {
+  padding-top: 6px;
+}
+
+.workflow-title {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+
+.workflow-body {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* ── Who does what table ────────────────────────────────────── */
+.role-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  overflow: hidden;
+  margin: 20px 0;
+}
+
+.role-table th {
+  background: var(--paper);
+  padding: 10px 16px;
+  text-align: left;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  border-bottom: 1px solid var(--line);
+}
+
+.role-table td {
+  padding: 11px 16px;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink);
+  vertical-align: top;
+  line-height: 1.5;
+}
+
+.role-table tr:last-child td { border-bottom: none; }
+
+.role-tag {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 2px 7px;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+
+.tag-head { background: rgba(18,53,36,0.10); color: var(--forest); }
+.tag-rc   { background: rgba(62,124,177,0.12); color: #29618F; }
+.tag-auto { background: rgba(217,166,46,0.15); color: #9B7119; }
+
+/* ── Pipeline strip (visual step map) ──────────────────────── */
+.step-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 20px 0 24px;
+}
+
+.step-chip {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--forest-light);
+  border-radius: 5px;
+  padding: 8px 12px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.step-chip-num {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 10px;
+  color: var(--forest-light);
+  background: rgba(18,53,36,0.08);
+  padding: 1px 6px;
+  border-radius: 3px;
+}
+
+.step-chip.grad {
+  border-left-color: var(--sky);
+}
+
+.step-chip.grad .step-chip-num {
+  color: #29618F;
+  background: rgba(62,124,177,0.10);
+}
+
+.step-arrow {
+  display: flex;
+  align-items: center;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* ── Divider ────────────────────────────────────────────────── */
+.divider {
+  height: 1px;
+  background: var(--line);
+  margin: 52px 0;
+}
+
+/* ── Footer ─────────────────────────────────────────────────── */
+.footer {
+  background: var(--forest);
+  color: rgba(255,255,255,0.5);
+  padding: 32px 60px;
+  font-size: 12px;
+  font-family: "IBM Plex Mono", monospace;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.footer-left { line-height: 1.8; }
+.footer-right { color: rgba(255,255,255,0.3); }
+
+/* ── Print ──────────────────────────────────────────────────── */
+@media print {
+  body { background: #fff; }
+  .cover { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .footer { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .page { padding: 0 20px 40px; }
+  .view-block, .feature-card, .status-item, .callout { break-inside: avoid; }
+  .section { break-inside: avoid; }
+}
+
+/* ── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 680px) {
+  .cover { padding: 48px 24px 44px; }
+  .page { padding: 0 20px 60px; }
+  .feature-grid { grid-template-columns: 1fr; }
+  .toc-list { grid-template-columns: 1fr; }
+  .footer { padding: 24px; flex-direction: column; align-items: flex-start; }
+  .step-strip { flex-direction: column; align-items: flex-start; }
+  .step-arrow { display: none; }
+}
+
+</style>
+</head>
+<body>
+
+<!-- ================================================================
+     COVER
+================================================================ -->
+<div class="cover">
+  <div class="cover-eyebrow">EduSpots Operations Portfolio · Project 2 of 5</div>
+  <h1 class="cover-title">Catalyst Onboarding &amp; Induction Pipeline Tracker</h1>
+  <p class="cover-subtitle">
+    A product guide for the Head of Programme and Product Operations —
+    how this tool works, what each section does, and how it fits into
+    the recruitment, induction, and tracking of Catalysts across the network.
+  </p>
+  <div class="cover-meta">
+    <div class="cover-meta-item">
+      <span class="cover-meta-label">Maps to JD line</span>
+      <span class="cover-meta-value">Effective recruitment, induction &amp; tracking of Catalysts</span>
+    </div>
+    <div class="cover-meta-item">
+      <span class="cover-meta-label">Network covered</span>
+      <span class="cover-meta-value">136 Catalysts · 4 RC clusters · Ghana</span>
+    </div>
+    <div class="cover-meta-item">
+      <span class="cover-meta-label">Status</span>
+      <span class="cover-meta-value">Prototype · synthetic demo data</span>
+    </div>
+  </div>
+</div>
+
+<div class="page">
+
+<!-- ================================================================
+     TABLE OF CONTENTS
+================================================================ -->
+<nav class="toc" aria-label="Table of contents">
+  <p class="toc-title">Contents</p>
+  <ul class="toc-list">
+    <li><a href="#what-it-is"><span class="toc-num">01</span> What this tool is</a></li>
+    <li><a href="#the-principle"><span class="toc-num">02</span> The core principle</a></li>
+    <li><a href="#overview-view"><span class="toc-num">03</span> Overview view</a></li>
+    <li><a href="#board-view"><span class="toc-num">04</span> Pipeline board</a></li>
+    <li><a href="#rcs-view"><span class="toc-num">05</span> RC clusters</a></li>
+    <li><a href="#stalled-view"><span class="toc-num">06</span> Stalled Catalysts</a></li>
+    <li><a href="#detail-view"><span class="toc-num">07</span> Catalyst detail</a></li>
+    <li><a href="#status-rules"><span class="toc-num">08</span> How status is calculated</a></li>
+    <li><a href="#workflow"><span class="toc-num">09</span> Typical weekly workflow</a></li>
+    <li><a href="#who-does-what"><span class="toc-num">10</span> Who does what</a></li>
+    <li><a href="#roadmap"><span class="toc-num">11</span> Next steps if built for real</a></li>
+  </ul>
+</nav>
+
+
+<!-- ================================================================
+     01 — WHAT IT IS
+================================================================ -->
+<section class="section" id="what-it-is">
+  <p class="section-eyebrow">01</p>
+  <h2 class="section-title">What this tool is</h2>
+  <p class="section-lead">
+    A single, network-wide view of every Catalyst currently moving through
+    EduSpots' 6-step induction pathway — and where each one has stalled.
+  </p>
+
+  <p style="font-size:15px; color:#1A1A16; line-height:1.75; margin-bottom:16px;">
+    New Catalysts join through a defined pathway — part of the "Ignite" phase,
+    ahead of "Catalyse" and "Sustain" — that takes them through community
+    engagement, team building, safeguarding training, systems/app training,
+    digital skills, and pedagogical training. Right now, tracking where 130+
+    Catalysts sit in that pathway likely lives in a patchwork of spreadsheets
+    and individual RC memory. That works when a handful of new Catalysts join
+    each month. It starts to break down when you need to answer: who's been
+    stuck on Step 2 for three months? Which RC's induction pipeline is moving
+    fastest? Is anyone about to fall through the cracks before they ever run
+    a session for a Spot?
+  </p>
+
+  <div class="step-strip">
+    <div class="step-chip"><span class="step-chip-num">1</span> Community engagement</div>
+    <div class="step-arrow">→</div>
+    <div class="step-chip"><span class="step-chip-num">2</span> Team building</div>
+    <div class="step-arrow">→</div>
+    <div class="step-chip"><span class="step-chip-num">3</span> Safeguarding</div>
+    <div class="step-arrow">→</div>
+    <div class="step-chip"><span class="step-chip-num">4</span> Systems / app training</div>
+    <div class="step-arrow">→</div>
+    <div class="step-chip"><span class="step-chip-num">5</span> Digital skills</div>
+    <div class="step-arrow">→</div>
+    <div class="step-chip"><span class="step-chip-num">6</span> Pedagogical training</div>
+    <div class="step-arrow">→</div>
+    <div class="step-chip grad"><span class="step-chip-num">✓</span> Graduated</div>
+  </div>
+
+  <p style="font-size:15px; color:#1A1A16; line-height:1.75; margin-bottom:28px;">
+    This tracker consolidates that picture. It doesn't replace the RC
+    relationships that actually move a Catalyst through induction — it sits
+    above them, giving the Head of Programme and Product Operations a
+    network-level view that makes onboarding bottlenecks visible before
+    they become a Catalyst quietly drifting away.
+  </p>
+
+  <div class="feature-grid">
+    <div class="feature-card">
+      <div class="feature-card-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20M6 20V10M12 20V4M18 20v-6"/></svg>
+      </div>
+      <div class="feature-card-title">Every Catalyst, one view</div>
+      <div class="feature-card-body">See all 136 Catalysts and exactly where each one sits in the 6-step pathway without opening a spreadsheet or messaging an RC for an update.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-card-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      </div>
+      <div class="feature-card-title">Specific, actionable flags</div>
+      <div class="feature-card-body">Every flagged Catalyst carries the exact reason — "No step progress in 34 days," not just a red dot — so you know what conversation to have before you open the detail.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-card-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+      </div>
+      <div class="feature-card-title">A pipeline, not a list</div>
+      <div class="feature-card-body">The Kanban-style board shows induction as what it actually is — a pathway with stages — so bottlenecks at a specific step are visible at a glance.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-card-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+      </div>
+      <div class="feature-card-title">Human decision, always</div>
+      <div class="feature-card-body">The tool surfaces who needs a nudge. Every outreach, rescheduled training, and graduation sign-off is made by a person — the RC, the Head of Ops, or both together.</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+
+<!-- ================================================================
+     02 — THE PRINCIPLE
+================================================================ -->
+<section class="section" id="the-principle">
+  <p class="section-eyebrow">02</p>
+  <h2 class="section-title">The core principle</h2>
+  <p class="section-lead">Automation flags and summarizes. A human — always the RC — decides.</p>
+
+  <div class="callout callout-principle">
+    <span class="callout-icon">🌿</span>
+    <div>
+      <strong>Why this matters for induction specifically</strong>
+      <p>A tool that auto-escalated "stalled" Catalysts or auto-graduated anyone who ticked all six boxes would remove exactly the judgment that makes onboarding work. An RC knows that a Catalyst's safeguarding training got rescheduled because of a family emergency, that someone finished all six steps on paper but clearly isn't ready to lead a session yet, that a "stalled" flag on paper is really just a Catalyst waiting on a training date the RC already has scheduled. The tracker doesn't have that context. So it flags; you decide.</p>
+    </div>
+  </div>
+
+  <p style="font-size:15px; color:#1A1A16; line-height:1.75; margin-top:20px;">
+    This is stated as plainly as possible, because it's the single most
+    important design decision in the tool: <strong>whether a Catalyst is
+    actually ready to graduate induction is never an automated decision.</strong>
+    "Graduated" status means the 6-step checklist is complete — nothing more.
+    It is a prompt for an RC conversation and sign-off, not a substitute for
+    it. The "Acknowledge for follow-up" button on a stalled Catalyst doesn't
+    change their step, reschedule a training, or mark anything complete — it
+    records that a human has seen the flag and taken ownership of the
+    follow-up.
+  </p>
+</section>
+
+<div class="divider"></div>
+
+
+<!-- ================================================================
+     03 — OVERVIEW VIEW
+================================================================ -->
+<section class="section" id="overview-view">
+  <p class="section-eyebrow">03</p>
+  <h2 class="section-title">Overview view</h2>
+  <p class="section-lead">The starting screen. A pulse-check on the whole induction pipeline before you go deeper.</p>
+
+  <div class="view-block">
+    <div class="view-block-header">
+      <div class="view-block-icon icon-forest">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+      </div>
+      <div>
+        <div class="view-block-name">Overview</div>
+        <div class="view-block-tagline">KPI row · step-by-step funnel chart · RC cluster distribution chart</div>
+      </div>
+    </div>
+    <div class="view-block-body">
+      <p>The Overview loads first when you open the tracker. It answers the most common Monday-morning question: <em>is the induction pipeline healthy right now, or is something backing up?</em></p>
+      <p>The KPI row gives five numbers at a glance. The two charts underneath show exactly where the pipeline is bottlenecked and whether any RC cluster has a disproportionate share of new Catalysts to manage.</p>
+
+      <ul class="element-list">
+        <li class="element-item">
+          <span class="element-label">In induction</span>
+          <span class="element-desc">Every Catalyst who hasn't yet completed all 6 steps. This is the working population the tool exists to track.</span>
+        </li>
+        <li class="element-item">
+          <span class="element-label">Graduated</span>
+          <span class="element-desc">Catalysts who've completed all 6 steps. Shown as a headline figure, but see the note in Section 08 — completing the checklist isn't the same as an RC confirming readiness.</span>
+        </li>
+        <li class="element-item">
+          <span class="element-label">Needs RC follow-up</span>
+          <span class="element-desc">The count of Catalysts currently flagged watch or stalled. This is the number to track week-on-week: going up means the pipeline is backing up; going down means follow-ups are working.</span>
+        </li>
+        <li class="element-item">
+          <span class="element-label">Avg. days to graduate</span>
+          <span class="element-desc">For Catalysts who've completed induction — how long it took from their start date to their final step. Useful for setting realistic expectations with new RCs or funders about onboarding timelines.</span>
+        </li>
+        <li class="element-item">
+          <span class="element-label">RC clusters</span>
+          <span class="element-desc">A simple count of the four Regional Coordinator clusters currently managing induction — confirms the network context at a glance.</span>
+        </li>
+        <li class="element-item">
+          <span class="element-label">Catalysts by induction step</span>
+          <span class="element-desc">A horizontal bar chart showing how many Catalysts currently sit at each of the 6 steps, plus Graduated. A tall bar at an early step with a much shorter one after it is the clearest possible signal of a bottleneck — e.g. lots of Catalysts stuck before Safeguarding, worth investigating whether training sessions are being scheduled often enough.</span>
+        </li>
+        <li class="element-item">
+          <span class="element-label">Catalysts by RC cluster</span>
+          <span class="element-desc">A doughnut chart comparing how many Catalysts each of the four RCs is currently managing through induction. An obvious imbalance is a prompt for a conversation about workload — not a performance judgment on any individual RC.</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+
+<!-- ================================================================
+     04 — PIPELINE BOARD
+================================================================ -->
+<section class="section" id="board-view">
+  <p class="section-eyebrow">04</p>
+  <h2 class="section-title">Pipeline board</h2>
+  <p class="section-lead">A Kanban-style board — one column per induction step. The fastest way to see where the pipeline is thin or backed up.</p>
+
+  <div class="view-block">
+    <div class="view-block-header">
+      <div class="view-block-icon icon-sky">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="9" y1="4" x2="9" y2="20"/><line x1="15" y1="4" x2="15" y2="20"/></svg>
+      </div>
+      <div>
+        <div class="view-block-name">Pipeline board</div>
+        <div class="view-block-tagline">7 columns (6 steps + Graduated) · filterable by RC cluster · click a card for detail</div>
+      </div>
+    </div>
+    <div class="view-block-body">
+      <p>The board gives you a spatial read of the whole pipeline. Every Catalyst appears as a card in the column matching their current step, colour-coded by status — green for on-track, gold for watch, clay/red for stalled, sky blue once graduated. A thin column early in the pathway with a thick one right after it means Catalysts are moving through that step quickly; the reverse means something is holding people back.</p>
+      <p>Filter by RC cluster before a check-in call — you'll see exactly which of that RC's Catalysts are where in the pipeline before you dial in, rather than asking them to talk you through it from memory.</p>
+      <p>Clicking any card opens the same Catalyst detail modal described in Section 07 — full checklist, dates, and (if flagged) the specific reason.</p>
+
+      <ul class="element-list">
+        <li class="element-item">
+          <span class="element-label">Card colour</span>
+          <span class="element-desc">Green border = on-track. Gold border = watch. Clay/red border = stalled. Sky blue border = graduated. The colour encodes the computed status — no manual tagging required.</span>
+        </li>
+        <li class="element-item">
+          <span class="element-label">Card content</span>
+          <span class="element-desc">Each card shows the Catalyst's name, their assigned Spot, and their RC — enough to know who they are and who owns their follow-up without opening the detail.</span>
+        </li>
+        <li class="element-item">
+          <span class="element-label">RC cluster filter</span>
+          <span class="element-desc">Narrows the whole board to a single RC's Catalysts — the fastest way to prep for a cluster-level check-in.</span>
+        </li>
+        <li class="element-item">
+          <span class="element-label">Column counts</span>
+          <span class="element-desc">Each column header shows how many Catalysts currently sit at that step, so you don't have to count cards to spot a bottleneck.</span>
+        </li>
+        <li class="element-item">
+          <span class="element-label">Graduated column</span>
+          <span class="element-desc">The 7th column. A Catalyst appearing here means their checklist is complete — see Section 08 for what that status does and doesn't mean.</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+
+<!-- ================================================================
+     05 — RC CLUSTERS
+================================================================ -->
+<section class="section" id="rcs-view">
+  <p class="section-eyebrow">05</p>
+  <h2 class="section-title">RC clusters</h2>
+  <p class="section-lead">Induction health grouped by Regional Coordinator — the fastest way to identify which cluster needs the most support this cycle.</p>
+
+  <div class="view-block">
+    <div class="view-block-header">
+      <div class="view-block-icon icon-gold">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+      </div>
+      <div>
+        <div class="view-block-name">RC clusters</div>
+        <div class="view-block-tagline">4 clusters · on-track / watch / stalled / graduated counts · avg. days to graduate per cluster</div>
+      </div>
+    </div>
+    <div class="view-block-body">
+      <p>Each row represents one Regional Coordinator and the Catalysts currently in their induction pipeline. This is the view to open before a cluster-level reporting conversation — with the Head of Education, a funder, or in a trustee update on Catalyst growth.</p>
+      <p>An obvious gap between clusters — one RC with a much higher stalled count, or a much longer average days-to-graduate — is a signal, not a conclusion. It's a prompt for a direct conversation about what that RC needs from HQ: more training session slots, admin support, or just a heads-up that a few Catalysts need a nudge.</p>
+
+      <ul class="element-list">
+        <li class="element-item">
+          <span class="element-label">Total</span>
+          <span class="element-desc">Total number of Catalysts currently assigned to this RC's cluster, across all stages of induction.</span>
+        </li>
+        <li class="element-item">
+          <span class="element-label">On-track / Watch / Stalled</span>
+          <span class="element-desc">A breakdown of this cluster's Catalysts by current status, using the same three-tier language as the rest of the tracker.</span>
+        </li>
+        <li class="element-item">
+          <span class="element-label">Graduated</span>
+          <span class="element-desc">How many of this RC's Catalysts have completed all 6 steps.</span>
+        </li>
+        <li class="element-item">
+          <span class="element-label">Avg. days to graduate</span>
+          <span class="element-desc">The average time this RC's graduated Catalysts took to complete induction — useful for spotting whether one cluster's pathway is consistently slower than the others.</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+
+<!-- ================================================================
+     06 — STALLED CATALYSTS
+================================================================ -->
+<section class="section" id="stalled-view">
+  <p class="section-eyebrow">06</p>
+  <h2 class="section-title">Stalled Catalysts</h2>
+  <p class="section-lead">The action view — every Catalyst flagged watch or stalled, with the specific reason and a way to take ownership of the follow-up.</p>
+
+  <div class="view-block">
+    <div class="view-block-header">
+      <div class="view-block-icon icon-clay">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      </div>
+      <div>
+        <div class="view-block-name">Stalled Catalysts</div>
+        <div class="view-block-tagline">Flagged Catalysts only · specific reasons · acknowledge for follow-up · filterable by RC</div>
+      </div>
+    </div>
+    <div class="view-block-body">
+      <p>This view collects every Catalyst who has crossed a watch or stalled threshold — sorted with the more serious cases (stalled) ahead of the early warnings (watch). Each card states the specific reason in plain language, so you arrive at a follow-up conversation already knowing what you're dealing with.</p>
+      <p>The "Acknowledge for follow-up" button records that someone — an RC or the Head of Ops — has taken ownership of reviewing that Catalyst's situation. It doesn't advance their step, doesn't mark anything complete, and doesn't send a notification. It's a human handshake: I've seen this, I'm on it.</p>
+
+      <ul class="element-list">
+        <li class="element-item">
+          <span class="element-label">Specific flagged reason</span>
+          <span class="element-desc">Every card states the exact date-derived condition that triggered the flag, e.g. "No step progress in 34 days" or "Still on Safeguarding 96 days since induction start." Never just a colour.</span>
+        </li>
+        <li class="element-item">
+          <span class="element-label">Spot and RC on the card</span>
+          <span class="element-desc">The Catalyst's assigned Spot and RC are shown directly on the card — you don't need to open a detail panel to know who to contact about follow-up.</span>
+        </li>
+        <li class="element-item">
+          <span class="element-label">Acknowledge for follow-up</span>
+          <span class="element-desc">Marks a Catalyst as having been reviewed. The button becomes a confirmation state and the card dims. In this prototype, acknowledgements are stored in the browser and persist across refreshes on the same device; in a live system they'd be stored centrally with a timestamp and the name of whoever acknowledged it.</span>
+        </li>
+        <li class="element-item">
+          <span class="element-label">RC cluster filter</span>
+          <span class="element-desc">Narrows the list to a single RC's flagged Catalysts — useful for preparing a focused follow-up list before a call.</span>
+        </li>
+        <li class="element-item">
+          <span class="element-label">Sort order</span>
+          <span class="element-desc">Stalled Catalysts always appear above watch Catalysts, so the most urgent cases are at the top without any manual sorting.</span>
+        </li>
+      </ul>
+
+      <div class="callout callout-note" style="margin-top:20px;">
+        <span class="callout-icon">💡</span>
+        <div>
+          <strong>How to use this view in a weekly ops review</strong>
+          <p>Open this view at the start of each week. Work through the stalled cards first. For each: does the reason match something you already know — a rescheduled training, a Catalyst on a planned break? Acknowledge it. Is it a surprise? It needs a message to the relevant RC. Then move to watch cards — the early warnings worth a light-touch check-in before they tip into stalled.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+
+<!-- ================================================================
+     07 — CATALYST DETAIL
+================================================================ -->
+<section class="section" id="detail-view">
+  <p class="section-eyebrow">07</p>
+  <h2 class="section-title">Catalyst detail</h2>
+  <p class="section-lead">The full record for one Catalyst — reached by clicking any card on the board or any name in the Stalled Catalysts view.</p>
+
+  <div class="view-block">
+    <div class="view-block-header">
+      <div class="view-block-icon icon-forest">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      </div>
+      <div>
+        <div class="view-block-name">Catalyst detail (modal)</div>
+        <div class="view-block-tagline">Full 6-step checklist · dates · "what's next" · flagged reason if applicable</div>
+      </div>
+    </div>
+    <div class="view-block-body">
+      <p>This is the closest the tracker gets to a case file, and it's deliberately narrow in scope. It shows: name, assigned Spot, assigned RC, induction start date, days since last step progress, the complete 6-step checklist with completion dates, and — if flagged — the specific reason stated plainly at the top.</p>
+      <p>Beneath the checklist, an auto-generated "what's next" line names the next incomplete step and who to contact to schedule it. This is a convenience, not a decision — it's derived directly from the checklist and the assigned RC, nothing more.</p>
+
+      <ul class="element-list">
+        <li class="element-item">
+          <span class="element-label">Induction checklist</span>
+          <span class="element-desc">All 6 steps listed in order. Completed steps show a checkmark and completion date. The current step is highlighted. Remaining steps show as empty.</span>
+        </li>
+        <li class="element-item">
+          <span class="element-label">Days since last progress</span>
+          <span class="element-desc">The exact number of days since the Catalyst's most recent completed step — the same figure that drives the watch/stalled status rules, shown transparently rather than hidden behind a badge.</span>
+        </li>
+        <li class="element-item">
+          <span class="element-label">"What's next" line</span>
+          <span class="element-desc">Names the next incomplete step and suggests reaching out to the assigned RC to schedule it. For a graduated Catalyst, this instead notes that RC sign-off is still needed to confirm readiness.</span>
+        </li>
+        <li class="element-item">
+          <span class="element-label">Flagged reason (if applicable)</span>
+          <span class="element-desc">Shown at the top of the modal in the same plain language used everywhere else in the tool — no separate explanation needed to understand why this Catalyst needs attention.</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+
+<!-- ================================================================
+     08 — STATUS RULES
+================================================================ -->
+<section class="section" id="status-rules">
+  <p class="section-eyebrow">08</p>
+  <h2 class="section-title">How status is calculated</h2>
+  <p class="section-lead">Every status is computed by a named function with explicit, visible rules — no hidden scoring, no black box.</p>
+
+  <p style="font-size:15px; color:#1A1A16; line-height:1.75; margin-bottom:24px;">
+    The rules are the same regardless of which view you're in. A Catalyst
+    flagged "stalled" on the board is flagged for the same reason they appear
+    in the Stalled Catalysts view. The reason is always shown alongside the
+    status — never implied by a colour alone.
+  </p>
+
+  <h3 style="font-family:'Space Grotesk',sans-serif; font-size:16px; font-weight:700; color:#1A1A16; margin-bottom:14px;">Catalyst induction status</h3>
+  <div class="status-row">
+    <div class="status-item status-stalled">
+      <span class="status-pill pill-stalled">Stalled</span>
+      <div class="status-content">
+        <div class="status-name">Either of the following:</div>
+        <div class="status-conditions">No step progress in <strong>30+ days</strong>, OR still on the current step <strong>90+ days</strong> after induction start.</div>
+      </div>
+    </div>
+    <div class="status-item status-watch">
+      <span class="status-pill pill-watch">Watch</span>
+      <div class="status-content">
+        <div class="status-name">Either of the following (and not already stalled):</div>
+        <div class="status-conditions">No step progress in <strong>14–29 days</strong>, OR still on the current step <strong>45–89 days</strong> after induction start.</div>
+      </div>
+    </div>
+    <div class="status-item status-ontrack">
+      <span class="status-pill pill-ontrack">On-track</span>
+      <div class="status-content">
+        <div class="status-name">Neither of the above conditions apply.</div>
+        <div class="status-conditions">Recent step progress and a reasonable pace relative to induction start. No flag is raised.</div>
+      </div>
+    </div>
+    <div class="status-item status-graduated">
+      <span class="status-pill pill-graduated">Graduated</span>
+      <div class="status-content">
+        <div class="status-name">All 6 steps complete.</div>
+        <div class="status-conditions">The checklist is done — this is a data state, not a certification. See the note below.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout callout-scope" style="margin-top:24px;">
+    <span class="callout-icon">🔒</span>
+    <div>
+      <strong>What "graduated" can and cannot mean</strong>
+      <p>Graduated means the 6-step checklist is complete — nothing more. It does not mean an RC has confirmed the Catalyst is ready to independently run sessions at a Spot. That judgment call is always human, and it happens outside this tool, through the RC relationship. The tracker's job stops at telling you the checklist is done; whether that Catalyst is actually ready is exactly the kind of context a spreadsheet of dates can never capture.</p>
+    </div>
+  </div>
+
+  <div class="callout callout-note" style="margin-top:16px;">
+    <span class="callout-icon">📋</span>
+    <div>
+      <strong>The thresholds can be adjusted</strong>
+      <p>The 30-day, 90-day, 14-day, and 45-day thresholds above are starting points, not fixed policy. In a live deployment, the Head of Ops and RCs would review these together and set thresholds that reflect what EduSpots considers a healthy induction pace — which may reasonably differ by region, given differing training session availability.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+
+<!-- ================================================================
+     09 — TYPICAL WORKFLOW
+================================================================ -->
+<section class="section" id="workflow">
+  <p class="section-eyebrow">09</p>
+  <h2 class="section-title">Typical weekly workflow</h2>
+  <p class="section-lead">How the Head of Programme and Product Operations would use this in practice — from Monday morning to a follow-up conversation with an RC.</p>
+
+  <div class="workflow">
+    <div class="workflow-step">
+      <div class="workflow-num">1</div>
+      <div class="workflow-content">
+        <div class="workflow-title">Open Overview — read the pipeline pulse</div>
+        <div class="workflow-body">Check the KPI row. Has the "needs RC follow-up" count gone up or down since last week? Is average days-to-graduate trending longer? Does the step funnel chart show a new bottleneck at a specific stage? These numbers set the agenda for the rest of the session.</div>
+      </div>
+    </div>
+    <div class="workflow-step">
+      <div class="workflow-num">2</div>
+      <div class="workflow-content">
+        <div class="workflow-title">Go to Stalled Catalysts — triage the flagged cases</div>
+        <div class="workflow-body">Work through the stalled cards first. For each: is this already known and in hand — a rescheduled training, a planned break? Acknowledge it. Is it a surprise? Note it for a message to the relevant RC. Repeat for watch cards — the early warnings worth a light check-in before they become urgent.</div>
+      </div>
+    </div>
+    <div class="workflow-step">
+      <div class="workflow-num">3</div>
+      <div class="workflow-content">
+        <div class="workflow-title">Go to Pipeline board — spot where the bottleneck actually is</div>
+        <div class="workflow-body">If the Overview chart flagged a bottleneck at a specific step, filter the board by RC cluster to see whether it's network-wide or concentrated in one region. A bottleneck at Step 3 (Safeguarding) across every cluster might mean training sessions simply aren't scheduled often enough — that's a scheduling fix, not an individual-RC problem.</div>
+      </div>
+    </div>
+    <div class="workflow-step">
+      <div class="workflow-num">4</div>
+      <div class="workflow-content">
+        <div class="workflow-title">Prepare for RC cluster calls — check RC clusters, then filter the board</div>
+        <div class="workflow-body">Before a check-in call with, say, Abdul Wadud Suleiman (Central/Western Regions), open RC clusters to see his overall pipeline health relative to the others. Then filter the board or the Stalled Catalysts view to his cluster specifically. Arrive at the call with a focused agenda rather than a general "how's induction going?"</div>
+      </div>
+    </div>
+    <div class="workflow-step">
+      <div class="workflow-num">5</div>
+      <div class="workflow-content">
+        <div class="workflow-title">Make the readiness call — outside the tool</div>
+        <div class="workflow-body">The tracker tells you who's stuck and where. The actual decisions — rescheduling a training block, confirming a graduated Catalyst is genuinely ready to run a session, deciding a stalled Catalyst needs a different kind of support — are made by the Head of Ops and the relevant RC together, using the tracker as the shared evidence base rather than the decision-maker.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+
+<!-- ================================================================
+     10 — WHO DOES WHAT
+================================================================ -->
+<section class="section" id="who-does-what">
+  <p class="section-eyebrow">10</p>
+  <h2 class="section-title">Who does what</h2>
+  <p class="section-lead">The tracker serves three roles differently. The tool does the date-tracking; people make every decision that matters.</p>
+
+  <table class="role-table">
+    <thead>
+      <tr>
+        <th>Task</th>
+        <th>Who</th>
+        <th>In the tool</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Monitor network-wide induction health</td>
+        <td><span class="role-tag tag-head">Head of Ops</span></td>
+        <td>Overview KPIs + charts</td>
+      </tr>
+      <tr>
+        <td>Identify which Catalysts need urgent follow-up</td>
+        <td><span class="role-tag tag-head">Head of Ops</span></td>
+        <td>Stalled Catalysts — stalled cards</td>
+      </tr>
+      <tr>
+        <td>Spot pipeline bottlenecks at a specific step</td>
+        <td><span class="role-tag tag-head">Head of Ops</span></td>
+        <td>Overview step funnel chart + Pipeline board</td>
+      </tr>
+      <tr>
+        <td>Prepare for RC cluster check-in calls</td>
+        <td><span class="role-tag tag-head">Head of Ops</span> <span class="role-tag tag-rc">RC</span></td>
+        <td>RC clusters + board/list filtered by RC</td>
+      </tr>
+      <tr>
+        <td>Record that a flagged Catalyst is being followed up</td>
+        <td><span class="role-tag tag-rc">RC</span> <span class="role-tag tag-head">Head of Ops</span></td>
+        <td>Acknowledge for follow-up button</td>
+      </tr>
+      <tr>
+        <td>Schedule or reschedule an induction training step</td>
+        <td><span class="role-tag tag-rc">RC</span></td>
+        <td>Outside the tool — informed by the "what's next" line</td>
+      </tr>
+      <tr>
+        <td>Confirm a graduated Catalyst is ready to run sessions</td>
+        <td><span class="role-tag tag-rc">RC</span> <span class="role-tag tag-head">Head of Ops</span></td>
+        <td>Outside the tool — never automated</td>
+      </tr>
+      <tr>
+        <td>Report onboarding throughput to funders or trustees</td>
+        <td><span class="role-tag tag-head">Head of Ops</span></td>
+        <td>Overview KPIs · RC clusters table</td>
+      </tr>
+      <tr>
+        <td>Compute induction status and flag stalled Catalysts</td>
+        <td><span class="role-tag tag-auto">Automated</span></td>
+        <td>computeCatalystStatus() in data.js</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<div class="divider"></div>
+
+
+<!-- ================================================================
+     11 — ROADMAP
+================================================================ -->
+<section class="section" id="roadmap">
+  <p class="section-eyebrow">11</p>
+  <h2 class="section-title">Next steps if built for real</h2>
+  <p class="section-lead">This is a working prototype built on synthetic data. Here's what a live deployment would add.</p>
+
+  <div class="feature-grid">
+    <div class="feature-card">
+      <div class="feature-card-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+      </div>
+      <div class="feature-card-title">Live data connection</div>
+      <div class="feature-card-body">Connect to EduSpots' actual Catalyst records — likely the same app/data system used for Step 4 (Systems development) training — so the tracker reflects real induction progress without a new data entry habit.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-card-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 17H2a3 3 0 000 6h20a3 3 0 000-6z"/><path d="M6 17V3h12v14"/></svg>
+      </div>
+      <div class="feature-card-title">WhatsApp / email digest</div>
+      <div class="feature-card-body">A weekly summary sent to the Head of Ops and each RC listing new flags in their cluster — so the tracker pushes urgent information rather than waiting to be opened.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-card-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+      </div>
+      <div class="feature-card-title">CSV export</div>
+      <div class="feature-card-body">Export the Stalled Catalysts list or the RC clusters table to CSV for inclusion in trustee packs, funder reports, or RC performance conversations — without reformatting anything manually.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-card-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+      </div>
+      <div class="feature-card-title">RC-level authentication</div>
+      <div class="feature-card-body">Each RC logs in to see only their own cluster's Catalysts — a more focused daily view, and appropriate given the personal details involved in onboarding a new Catalyst.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-card-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+      </div>
+      <div class="feature-card-title">Acknowledge with attribution</div>
+      <div class="feature-card-body">Persist acknowledgements centrally with a timestamp and the name of the person who logged them — a clear audit trail of who took ownership of a stalled Catalyst's follow-up and when, rather than the current per-browser storage.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-card-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+      </div>
+      <div class="feature-card-title">Integration with Project #1 and #4</div>
+      <div class="feature-card-body">Cross-reference a Catalyst's induction status with their assigned Spot's health data (Project #1) and their ongoing safeguarding training compliance once graduated (Project #4) — so the full Catalyst lifecycle, not just onboarding, is visible in one place.</div>
+    </div>
+  </div>
+</section>
+
+</div><!-- /page -->
+
+<!-- ================================================================
+     FOOTER
+================================================================ -->
+<footer class="footer">
+  <div class="footer-left">
+    EduSpots Catalyst Onboarding &amp; Induction Pipeline Tracker<br />
+    Project 2 of 5 · Head of Programme and Product Operations portfolio<br />
+    Prototype — all Catalyst names, induction dates, and progress records are synthetic demo data
+  </div>
+  <div class="footer-right">
+    eduspots.org
+  </div>
+</footer>
+
+</body>
+</html>
